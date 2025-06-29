@@ -10,23 +10,8 @@ pub struct Pallet<T: Config> {
     pub balances: BTreeMap<T::AccountId, T::Balance>,
 }
 
+#[macros::call]
 impl <T: Config> Pallet<T> {
-    pub fn new() -> Self {
-        Self {
-            balances: BTreeMap::new(),
-        }
-    }
-
-    // Set the balance of an account 'who' to some 'amount'
-    pub fn set_balance(&mut self, who: &T::AccountId, amount: T::Balance) {
-        self.balances.insert(who.clone(), amount);
-    }
-
-    // Get the balance of an account 'who'
-    pub fn balance(&self, who: &T::AccountId) -> T::Balance {
-        *self.balances.get(who).unwrap_or(&T::Balance::zero())
-    }
-
     // Transfer 'amount' from one account to another
     pub fn transfer(
         &mut self,
@@ -52,21 +37,21 @@ impl <T: Config> Pallet<T> {
     }
 }
 
-pub enum Call<T:Config> {
-    Transfer{ to: T::AccountId, amount: T::Balance},
-}
-
-impl<T: Config> crate::support::Dispatch for Pallet<T> {
-    type Caller = T::AccountId;
-    type Call = Call<T>;
-
-    fn dispatch(&mut self, caller: Self::Caller, call: Self::Call) -> crate::support::DispatchResult {
-        match call {
-            Call::Transfer { to, amount } => {
-                self.transfer(caller, to, amount)?;
-            }
+impl <T: Config> Pallet<T> {
+    pub fn new() -> Self {
+        Self {
+            balances: BTreeMap::new(),
         }
-        Ok(())
+    }
+
+    // Set the balance of an account 'who' to some 'amount'
+    pub fn set_balance(&mut self, who: &T::AccountId, amount: T::Balance) {
+        self.balances.insert(who.clone(), amount);
+    }
+
+    // Get the balance of an account 'who'
+    pub fn balance(&self, who: &T::AccountId) -> T::Balance {
+        *self.balances.get(who).unwrap_or(&T::Balance::zero())
     }
 }
 
