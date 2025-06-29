@@ -21,8 +21,8 @@
   Custom macros are included to make it easier to define and register new pallets or transaction handlers, reducing repetitive code.
   
 ## Directory Structure
-toy-blockchain-rs/
-├── macros/ # Rust macros for streamlining pallet/transaction definitions
-├── src/ # Main logic, pallets, and blockchain state
-├── Cargo.toml # Rust project configuration
+toy-blockchain-rs/<br>
+├── macros/ # Rust macros for streamlining pallet/transaction definitions<br>
+├── src/ # Main logic, pallets, and blockchain state<br>
+├── Cargo.toml # Rust project configuration<br>
 └── README.md # Project information
